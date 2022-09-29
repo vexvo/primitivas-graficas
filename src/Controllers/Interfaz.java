@@ -1,5 +1,11 @@
 package Controllers;
 
+import Models.Circulo;
+import Models.Cuadrado;
+import Models.Imagen;
+import Models.Poligono;
+import java.awt.Color;
+
 /**
  *
  * @author Santi
@@ -11,6 +17,19 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        int x[] = {10,30,30,20,20,10};
+        int y[] = {10,10,30,30,20,20};
+        Cuadrado c1 = new Cuadrado(Color.BLACK, Color.blue, 10, 10, 50);
+        Circulo s1 = new Circulo(Color.BLACK, Color.green, 80, 10, 50);
+        Imagen i1 = new Imagen(150, 10, "src/Images/bmw.png", 50, 50);
+        Poligono p1 = new Poligono(Color.BLACK, Color.red, x, y);
+        
+        this.lienzo1.getMisFiguras().add(c1);
+        this.lienzo1.getMisFiguras().add(s1);
+        this.lienzo1.getMisFiguras().add(i1);
+        this.lienzo1.getMisFiguras().add(p1);
+        
+        
     }
 
     /**
