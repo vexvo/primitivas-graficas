@@ -12,8 +12,8 @@ public class Cuadrado extends FiguraEstandar{
     public Cuadrado() {
     }
 
-    public Cuadrado(Color colorBorde, Color colorRelleno, int x, int y, int lado) {
-        super(colorBorde, colorRelleno, x, y);
+    public Cuadrado(int direction, Color colorBorde, Color colorRelleno, int x, int y, int lado) {
+        super(direction, colorBorde, colorRelleno, x, y);
         this.lado = lado;
     }
 

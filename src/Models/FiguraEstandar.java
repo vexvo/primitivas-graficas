@@ -13,12 +13,28 @@ public abstract class FiguraEstandar extends FiguraGeometrica{
     public FiguraEstandar() {
     }
 
-    public FiguraEstandar(Color colorBorde, Color colorRelleno, int x, int y) {
-        super(colorBorde, colorRelleno);
+    public FiguraEstandar(int direction, Color colorBorde, Color colorRelleno, int x, int y) {
+        super(direction, colorBorde, colorRelleno);
         this.x = x;
         this.y = y;
     }
 
+    public void moveR(int dist) {
+        this.x += dist;
+    }
+    
+    public void moveL(int dist) {
+        this.x -= dist;
+    }
+    
+    public void moveUp(int dist) {
+        this.y -= dist;
+    }
+    
+    public void moveDown(int dist) {
+        this.y += dist;
+    }
+    
     /**
      * @return the x
      */

@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Circulo;
 import Models.Cuadrado;
+import Models.FiguraEstandar;
 import Models.FiguraGeometrica;
 import Models.Imagen;
 import Models.Poligono;
@@ -15,9 +16,10 @@ import java.util.LinkedList;
  *
  * @author Santi
  */
-public class Lienzo extends javax.swing.JPanel {
+public class Lienzo extends javax.swing.JPanel implements Runnable{
 
     private LinkedList<FiguraGeometrica> misFiguras;
+    private boolean playing;
     
     /**
      * Creates new form Lienzo
@@ -25,6 +27,7 @@ public class Lienzo extends javax.swing.JPanel {
     public Lienzo() {
         initComponents();
         this.misFiguras = new LinkedList<>();
+        this.playing = false;
     }
     
     public void drawCuadrado(Graphics p, Cuadrado c) {
@@ -75,7 +78,7 @@ public class Lienzo extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics p) {
         super.paintComponent(p);
-        for (FiguraGeometrica current : this.misFiguras) {
+        for (FiguraGeometrica current : this.getMisFiguras()) {
             if (current instanceof Cuadrado)        drawCuadrado(p, (Cuadrado) current);
             else if (current instanceof Circulo)    drawCircle(p, (Circulo) current);
             else if (current instanceof Imagen)     drawImage(p, (Imagen) current);
@@ -125,6 +128,84 @@ public class Lienzo extends javax.swing.JPanel {
      */
     public void setMisFiguras(LinkedList<FiguraGeometrica> misFiguras) {
         this.misFiguras = misFiguras;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Playing");
+        while(this.playing) {
+            System.out.println("test");
+            this.move();
+            repaint();
+            waitt(10);
+        }
+        System.out.println("Stopped Playing");
+    }
+    
+    private void waitt(int ms) {
+        try {
+            Thread.sleep(ms);
+            
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
+    public void move() {
+        for (FiguraGeometrica current: this.misFiguras) {
+            if (current instanceof FiguraEstandar) {
+                if (current.getDirection() == 1 && ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100) {
+                    ((FiguraEstandar) current).moveUp(10);
+                }
+                else if (current.getDirection() == 2 && 
+                        ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100 &&
+                        ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth())   {
+                    ((FiguraEstandar) current).moveUp(10);
+                    ((FiguraEstandar) current).moveR(10);
+                }
+                else if (current.getDirection() == 3 && ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth()) {
+                    ((FiguraEstandar) current).moveR(10);
+                }
+                else if (current.getDirection() == 4 && 
+                        ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100 &&
+                        ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth())   {
+                    ((FiguraEstandar) current).moveDown(10);
+                    ((FiguraEstandar) current).moveR(10);
+                }
+                else if (current.getDirection() == 5 && ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100) {
+                    ((FiguraEstandar) current).moveDown(10);
+                }
+                else if (current.getDirection() == 6 && 
+                        ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100 &&
+                        ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth())   {
+                    ((FiguraEstandar) current).moveDown(10);
+                    ((FiguraEstandar) current).moveL(10);
+                }
+                else if (current.getDirection() == 7 && ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth()) {
+                    ((FiguraEstandar) current).moveL(10);
+                }
+                else if (current.getDirection() == 8 && 
+                        ((FiguraEstandar) current).getY() > 0 && ((FiguraEstandar) current).getY() < this.getHeight() - 100 &&
+                        ((FiguraEstandar) current).getX() > 0 && ((FiguraEstandar) current).getX() < this.getWidth())   {
+                    ((FiguraEstandar) current).moveUp(10);
+                    ((FiguraEstandar) current).moveL(10);
+                }
+            }   
+        }
+    }
+    
+    /**
+     * @return the playing
+     */
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    /**
+     * @param playing the playing to set
+     */
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
 

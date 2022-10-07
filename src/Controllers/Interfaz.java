@@ -11,24 +11,34 @@ import java.awt.Color;
  * @author Santi
  */
 public class Interfaz extends javax.swing.JFrame {
-
+    
+    Lienzo miLienzo;
+    Thread gameProcess;
+    
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
-        int x[] = {10,30,30,20,20,10};
-        int y[] = {10,10,30,30,20,20};
-        Cuadrado c1 = new Cuadrado(Color.BLACK, Color.blue, 10, 10, 50);
-        Circulo s1 = new Circulo(Color.BLACK, Color.green, 80, 10, 50);
-        Imagen i1 = new Imagen(150, 10, "src/Images/bmw.png", 50, 50);
-        Poligono p1 = new Poligono(Color.BLACK, Color.red, x, y);
+        this.miLienzo = new Lienzo();
+        this.miLienzo.setVisible(true);
+        this.miLienzo.setSize(1000, 560);
+        this.miLienzo.setBackground(Color.WHITE);
+        this.add(this.miLienzo);
         
-        this.lienzo1.getMisFiguras().add(c1);
-        this.lienzo1.getMisFiguras().add(s1);
-        this.lienzo1.getMisFiguras().add(i1);
-        this.lienzo1.getMisFiguras().add(p1);
+        Circulo s1 = new Circulo(4, Color.BLACK, Color.BLACK, 100, 100, 100);
+        this.miLienzo.getMisFiguras().add(s1);
         
+//        int x[] = {10,30,30,20,20,10};
+//        int y[] = {10,10,30,30,20,20};
+//        Cuadrado c1 = new Cuadrado(Color.BLACK, Color.blue, 10, 10, 50);
+//        
+//        Imagen i1 = new Imagen(150, 10, "src/Images/bmw.png", 50, 50);
+//        Poligono p1 = new Poligono(Color.BLACK, Color.red, x, y);
+//        
+//        this.miLienzo.getMisFiguras().add(c1);
+//        this.miLienzo.getMisFiguras().add(i1);
+//        this.miLienzo.getMisFiguras().add(p1);
         
     }
 
@@ -41,40 +51,61 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lienzo1 = new Controllers.Lienzo();
+        bstart = new javax.swing.JButton();
+        bstop = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
-        lienzo1.setLayout(lienzo1Layout);
-        lienzo1Layout.setHorizontalGroup(
-            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 896, Short.MAX_VALUE)
-        );
-        lienzo1Layout.setVerticalGroup(
-            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 457, Short.MAX_VALUE)
-        );
+        bstart.setText("Start");
+        bstart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bstartActionPerformed(evt);
+            }
+        });
+
+        bstop.setText("Stop");
+        bstop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bstopActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(1040, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bstop)
+                    .addComponent(bstart))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lienzo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(238, Short.MAX_VALUE)
+                .addComponent(bstart)
+                .addGap(18, 18, 18)
+                .addComponent(bstop)
+                .addGap(189, 189, 189))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bstartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bstartActionPerformed
+        if (!this.miLienzo.isPlaying()){
+            this.gameProcess = new Thread(this.miLienzo);
+            this.miLienzo.setPlaying(true);
+            this.gameProcess.start();
+        }
+        
+    }//GEN-LAST:event_bstartActionPerformed
+
+    private void bstopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bstopActionPerformed
+        this.miLienzo.setPlaying(false);
+    }//GEN-LAST:event_bstopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,6 +143,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Controllers.Lienzo lienzo1;
+    private javax.swing.JButton bstart;
+    private javax.swing.JButton bstop;
     // End of variables declaration//GEN-END:variables
 }

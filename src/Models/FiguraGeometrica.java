@@ -9,11 +9,13 @@ import java.awt.Color;
 public class FiguraGeometrica {
     private Color colorBorde;
     private Color colorRelleno;
+    private int direction;
 
     public FiguraGeometrica() {
     }
 
-    public FiguraGeometrica(Color colorBorde, Color colorRelleno) {
+    public FiguraGeometrica(int direction, Color colorBorde, Color colorRelleno) {
+        this.direction = direction;
         this.colorBorde = colorBorde;
         this.colorRelleno = colorRelleno;
     }
@@ -44,6 +46,20 @@ public class FiguraGeometrica {
      */
     public void setColorRelleno(Color colorRelleno) {
         this.colorRelleno = colorRelleno;
+    }
+
+    /**
+     * @return the direction
+     */
+    public int getDirection() {
+        return direction;
+    }
+
+    /**
+     * @param direction the direction to set
+     */
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
     
     

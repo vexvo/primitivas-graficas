@@ -14,8 +14,8 @@ public class Imagen extends FiguraEstandar{
     public Imagen() {
     }
 
-    public Imagen(int x, int y, String url, int alto, int ancho) {
-        super(null, null, x, y);
+    public Imagen(int direction, int x, int y, String url, int alto, int ancho) {
+        super(direction, null, null, x, y);
         this.url = url;
         this.alto = alto;
         this.ancho = ancho;
